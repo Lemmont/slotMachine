@@ -3,15 +3,9 @@
   let wallet = 200;
   const items = ["💰", "🍒", "🍀", "🎰", "🎲", "🍇", "🍉", "🍋", "🍓"];
   const value = {
-    "💰": 2.0,
-    "🍒": 1.1,
-    "🍀": 1.25,
-    "🎰": 1.5,
-    "🎲": 1.2,
-    "🍇": 1.1,
-    "🍉": 1.1,
-    "🍋": 1.33,
-    "🍓": 1.2,
+    "💰💰💰": 50,
+    "🍀": 1,
+    "🍒": 1.5,
   };
 
   document.querySelector(".info").textContent = items.join(" ");
@@ -53,19 +47,23 @@
 
   /* Check result of spin */
   function check(pools) {
-    const arrr = [[]];
+    const arrr = [""];
     for (const pool of pools) {
-      arrr[0].push(pool.slice(-1)[0]);
+      arrr[0] = arrr[0] + pool.slice(-1)[0];
     }
 
-    const allEqual = (arr) => arr.every((v) => v === arr[0]);
-
-    if (allEqual(arrr[0])) {
-      const mult = value[arrr[0][0]];
-      return mult;
-    } else {
-      return 0.0;
+    const hits = [];
+    for (const item of Object.keys(value)) {
+      if (arrr[0].includes(item)) {
+        hits.push(item);
+      }
     }
+
+    const mults = [];
+    for (const item of hits) {
+      mults.push(value[item]);
+    }
+    return mults.length > 0 ? Math.max(...mults) : 0.0;
   }
 
   function updateWallet(betAmount) {
