@@ -1,14 +1,19 @@
 // Show popup with related message based on action
 export function showPopUp(message, type) {
   const popup = document.querySelector("#popup");
-  popup.innerHTML = message;
 
-  if (popup.classList.contains("show")) {
+  if (popup.classList.contains("show") && message == popup.innerHTML) {
     return;
+  } else {
+    clearStyle(popup);
   }
+
+  popup.innerHTML = message;
 
   if (type == "error") {
     popup.classList.add("error");
+  } else if (type == "success") {
+    popup.classList.add("success");
   }
   popup.classList.remove("init");
   popup.classList.add("show");
@@ -17,6 +22,7 @@ export function showPopUp(message, type) {
     popup.classList.remove("show");
     popup.classList.add("init");
     clearStyle(popup);
+    popup.innerHTML = "";
   }, 3000);
 }
 

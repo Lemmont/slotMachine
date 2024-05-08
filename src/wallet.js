@@ -8,7 +8,8 @@ export function updateWallet(betAmount) {
 export function checkWallet(betAmount) {
   if (
     typeof parseFloat(betAmount) != "number" ||
-    isNaN(parseFloat(betAmount))
+    isNaN(parseFloat(betAmount)) ||
+    parseFloat(betAmount) <= 0
   ) {
     return "invalid";
   }
