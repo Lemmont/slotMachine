@@ -121,3 +121,31 @@ body {
   transform: translateY(25vh);
   transition-duration: 0.5s;
 }
+
+.history {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #212121;
+  padding-left: 1.1rem;
+}
+
+.history #items {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+}
+
+.history #items div {
+  margin-bottom: 0.5rem;
+}
+
+.gain {
+  color: green;
+}
+
+.loss {
+  color: red;
+}

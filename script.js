@@ -2,6 +2,17 @@
   "use strict";
   let wallet = 200;
   const items = ["💰", "🍒", "🍀", "🎰", "🎲", "🍇", "🍉", "🍋", "🍓"];
+  const value = {
+    "💰": 2.0,
+    "🍒": 1.1,
+    "🍀": 1.25,
+    "🎰": 1.5,
+    "🎲": 1.2,
+    "🍇": 1.1,
+    "🍉": 1.1,
+    "🍋": 1.33,
+    "🍓": 1.2,
+  };
 
   document.querySelector(".info").textContent = items.join(" ");
 
@@ -9,6 +20,24 @@
 
   document.querySelector("#spinner").addEventListener("click", spin);
   document.querySelector("#money").textContent = wallet;
+
+  function addSpinResult(res) {
+    const history = document.querySelector("#items");
+    const historyClone = history.cloneNode(true);
+    const result = document.createElement("div");
+
+    if (res > 0) {
+      result.classList.add("gain");
+      result.innerHTML = res;
+    } else {
+      result.classList.add("loss");
+      result.innerHTML = res * -1;
+    }
+
+    historyClone.appendChild(result);
+
+    history.replaceWith(historyClone);
+  }
 
   function showPopUp(message) {
     const popup = document.querySelector("#popup");
@@ -24,20 +53,25 @@
 
   /* Check result of spin */
   function check(pools) {
-    const arr = [[]];
+    const arrr = [[]];
     for (const pool of pools) {
-      console.log(pool.slice(-1));
+      arrr[0].push(pool.slice(-1)[0]);
+    }
+
+    const allEqual = (arr) => arr.every((v) => v === arr[0]);
+
+    if (allEqual(arrr[0])) {
+      const mult = value[arrr[0][0]];
+      return mult;
+    } else {
+      return 0.0;
     }
   }
 
   function updateWallet(betAmount) {
     const currentMoney = parseFloat(document.querySelector("#money").innerHTML);
-    const newMoney = currentMoney - parseFloat(betAmount);
+    const newMoney = currentMoney + parseFloat(betAmount);
 
-    document.querySelector("#popup").innerHTML = `Betted ${betAmount}`;
-    showPopUp(`Betted $${betAmount}`);
-
-    console.log(currentMoney, parseFloat(betAmount), newMoney);
     document.querySelector("#money").innerHTML = parseFloat(newMoney);
   }
 
@@ -64,7 +98,8 @@
     const betAmount = document.querySelector("#bet").value;
     const status = checkWallet(betAmount);
     if (status == "true") {
-      updateWallet(betAmount);
+      updateWallet("-" + betAmount);
+      showPopUp(`Betted $${parseFloat(betAmount)}`);
     } else if (status == "invalid") {
       showPopUp(`Invalid bet`);
       return;
@@ -85,7 +120,13 @@
     await new Promise((resolve) =>
       setTimeout(resolve, dur * slots.length * 300)
     ).then(() => {
-      check(pools);
+      const mult = check(pools);
+      const gain =
+        mult > 0.0 ? parseFloat(betAmount) * mult : parseFloat(betAmount) * -1;
+      if (gain > 0.0) {
+        updateWallet(gain);
+      }
+      addSpinResult(gain);
       document.querySelector("#spinner").disabled = false;
     });
   }
