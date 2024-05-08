@@ -122,6 +122,13 @@ body {
   transition-duration: 0.5s;
 }
 
+.popup.error {
+}
+
+.error {
+  background: #ff0000;
+}
+
 .history {
   position: absolute;
   left: 0;

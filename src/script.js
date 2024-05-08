@@ -43,12 +43,12 @@ import { addSpinResult } from "./history.js";
     const status = checkWallet(betAmount);
     if (status == "true") {
       updateWallet("-" + betAmount);
-      showPopUp(`Betted $${parseFloat(betAmount)}`);
+      showPopUp(`Betted $${parseFloat(betAmount)}`, "success");
     } else if (status == "invalid") {
-      showPopUp(`Invalid bet`);
+      showPopUp(`Invalid bet`, "error");
       return;
     } else if (status == "minus") {
-      showPopUp(`Insufficient funds`);
+      showPopUp(`Insufficient funds`, "error");
       return;
     }
 
