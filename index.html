@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+  lang="
+en"
+>
+  <head>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Slot Machine</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="popup init" id="popup">popup</div>
+      <div class="wallet">
+        <p class="currency">$</p>
+        <p class="money" id="money"></p>
+      </div>
+      <div class="slots">
+        <div class="slot">
+          <div class="boxes"></div>
+        </div>
+
+        <div class="slot">
+          <div class="boxes"></div>
+        </div>
+
+        <div class="slot">
+          <div class="boxes"></div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button id="spinner">Spin</button>
+        <input class="bet" name="bet" id="bet" value="2" />
+      </div>
+
+      <p class="info"></p>
+    </div>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
