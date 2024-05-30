@@ -25,9 +25,3 @@ export function addSpinResult(res, betAmount) {
 
   history.replaceWith(historyClone);
 }
-
-/* <div class="item">
-            <div class="historicalBet">2</div>
-            <div class="gain">+3</div>
-          </div>
-        </div> */
